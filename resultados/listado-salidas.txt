@@ -1,0 +1,17 @@
+### ls -l /tmp/tera-input
+total 48832
+-rw-r--r-- 1 root root        0 Nov  6 16:30 _SUCCESS
+-rw-r--r-- 1 root root 50000000 Nov  6 16:30 part-m-00000
+
+### ls -l /tmp/tera-out-1r
+total 48832
+-rw-r--r-- 1 root root        0 Nov  6 16:30 _SUCCESS
+-rw-r--r-- 1 root root        0 Nov  6 16:30 _partition.lst
+-rw-r--r-- 1 root root 50000000 Nov  6 16:30 part-r-00000
+
+### ls -l /tmp/tera-out-2r
+total 48836
+-rw-r--r-- 1 root root        0 Nov  6 16:30 _SUCCESS
+-rw-r--r-- 1 root root       11 Nov  6 16:30 _partition.lst
+-rw-r--r-- 1 root root 25031200 Nov  6 16:30 part-r-00000
+-rw-r--r-- 1 root root 24968800 Nov  6 16:30 part-r-00001

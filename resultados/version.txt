@@ -1,0 +1,2 @@
+Hadoop 3.3.6
+openjdk version "17.0.21" 2026-10-20

@@ -1,0 +1,15 @@
+# Carpeta donde cada quien copia su propia corrida para compararla
+mis-resultados/
+
+# Nunca subir el instalador de Hadoop ni salidas binarias grandes
+*.tar.gz
+part-m-*
+part-r-*
+*.crc
+
+# Basura del sistema / editores
+.DS_Store
+*.swp
+*~
+.vscode/
+.idea/

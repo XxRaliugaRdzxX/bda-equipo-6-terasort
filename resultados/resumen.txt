@@ -1,0 +1,47 @@
+RESUMEN · Equipo 6 · La suite TeraSort
+======================================
+Hadoop 3.3.6
+openjdk version "17.0.21" 2026-10-20
+
+teragen
+  Registros generados (Map output records): 500000
+  Bytes del archivo part-m-00000:           50000000
+  Bytes en disco (part-m-00000 + su .crc):  50390636
+  Archivos part-m-*:                        1
+  CHECKSUM (decimal):                       1074598070305752
+  CHECKSUM (hexadecimal):                   3d1575c41c3d8
+
+terasort-1r
+  Splits (mappers):        2
+  Map output por mapper:   335545 164455
+  Map input records:       500000
+  Shuffled Maps:           2
+  Reduce output records:   500000
+terasort-2r
+  Splits (mappers):        2
+  Map output por mapper:   335545 164455
+  Map input records:       500000
+  Shuffled Maps:           4
+  Reduce output records:   500000
+
+Registros por archivo de salida (bytes / 100)
+  /tmp/tera-out-1r/part-r-00000: 500000
+  /tmp/tera-out-2r/part-r-00000: 250312
+  /tmp/tera-out-2r/part-r-00001: 249688
+
+Frontera entre reducers (2r)
+  Punto de corte (_partition.lst):    7ff2ca13634a6b2ac574
+  Última clave de part-r-00000:       7ff2bba4db8d6f57f755
+  Primera clave de part-r-00001:      7ff2ca13634a6b2ac574
+
+teravalidate
+  checksum 1 reducer:  3d1575c41c3d8
+  checksum 2 reducers: 3d1575c41c3d8
+  líneas de error:     0
+
+Tiempos (standalone, una sola JVM)
+  teragen	1.9 s
+  terasort-1r	3.2 s
+  terasort-2r	3.2 s
+  teravalidate-1r	1.9 s
+  teravalidate-2r	1.9 s
