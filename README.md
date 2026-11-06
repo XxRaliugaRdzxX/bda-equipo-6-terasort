@@ -267,6 +267,8 @@ Qué nos dicen estos números:
 | `head part-r-00000` muestra basura | La clave es binaria | Usar `od -t x1` |
 | `wc -l` da un número raro | Los registros son de 100 bytes fijos, no líneas | `tamaño ÷ 100` (`stat -c %s`) |
 | `docker: command not found` o "no such container" dentro del contenedor | Estás corriendo `docker` dentro del contenedor | Abre otra terminal en tu computadora 💻 |
+| `ln: failed to create symbolic link '/_partition.lst': Permission denied` y el job de `terasort` termina en `FAILED` | En modo local, Hadoop crea un enlace a `_partition.lst` en el directorio actual, y el usuario `hadoop` no puede escribir en `/` | Hacer `cd $HADOOP_HOME/share/hadoop/mapreduce` o a cualquier carpeta tuya antes de correr. El script lo hace solo. |
+| `rm: cannot remove '/tmp/tera-…': Permission denied` | Las salidas las creó otro usuario (por ejemplo `root`) y ahora estás como `hadoop` | Usar siempre el mismo usuario, o borrarlas desde tu computadora: `docker exec hadoop rm -rf /tmp/tera-* /tmp/resultados-terasort` |
 | `teravalidate` imprime líneas además de `checksum` | La salida no está en orden global (por ejemplo, la ordenaste con otro particionador) | Volver a correr `terasort` |
 
 ## 8. Mini ejercicio

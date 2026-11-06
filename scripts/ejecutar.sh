@@ -58,9 +58,23 @@ correr() {
 # los del job completo; por eso nos quedamos con la ÚLTIMA aparición.
 contador() { { grep -E "^\s+$2=" "$RES/logs/$1.log" || true; } | tail -n 1 | sed -E 's/.*=//' ; }
 
+# En modo local, Hadoop crea un enlace a _partition.lst en el directorio ACTUAL.
+# "docker exec" arranca en "/", donde el usuario hadoop no puede escribir, así que
+# trabajamos desde una carpeta propia (Hadoop borra el enlace al terminar).
+TRABAJO="/tmp/terasort-trabajo-$(id -un)"
+mkdir -p "$TRABAJO" && cd "$TRABAJO"
+
 # --- 2. Limpieza -------------------------------------------------------------
 # Hadoop se niega a escribir en una carpeta de salida que ya existe.
-titulo "Limpiando salidas anteriores"
+titulo "Limpiando salidas anteriores (como usuario $(id -un))"
+for d in "$IN" "$OUT1" "$OUT2" "$VAL1" "$VAL2" "$RES"; do
+  if [ -e "$d" ] && [ "$(stat -c %U "$d")" != "$(id -un)" ] && [ "$(id -u)" -ne 0 ]; then
+    echo "❌ $d la creó el usuario '$(stat -c %U "$d")' y tú eres '$(id -un)'." >&2
+    echo "   Corre el script con el mismo usuario, o bórrala desde tu computadora (💻) con:" >&2
+    echo "   docker exec hadoop rm -rf $IN $OUT1 $OUT2 $VAL1 $VAL2 $RES" >&2
+    exit 1
+  fi
+done
 rm -rf "$IN" "$OUT1" "$OUT2" "$VAL1" "$VAL2" "$RES"
 mkdir -p "$RES/logs"
 : > "$RES/tiempos.tsv"
